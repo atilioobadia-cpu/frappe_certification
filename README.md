@@ -1,6 +1,6 @@
 ### Airplane Mode
 
-Certification Exercise
+Certifications Exercise App
 
 ### Installation
 

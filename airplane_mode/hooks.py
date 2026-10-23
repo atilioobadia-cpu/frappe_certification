@@ -1,7 +1,7 @@
 app_name = "airplane_mode"
 app_title = "Airplane Mode"
 app_publisher = "Atilio Obadia"
-app_description = "Certification Exercise"
+app_description = "Certifications Exercise App"
 app_email = "atilioobadia@gmail.com"
 app_license = "mit"
 

@@ -3,7 +3,7 @@ name = "airplane_mode"
 authors = [
     { name = "Atilio Obadia", email = "atilioobadia@gmail.com"}
 ]
-description = "Certification Exercise"
+description = "Certifications Exercise App"
 requires-python = ">=3.14"
 readme = "README.md"
 dynamic = ["version"]
