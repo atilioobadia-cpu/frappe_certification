@@ -1,57 +1,75 @@
-# Frappe Developer Certification — Day 4: Final Assignment
+# ✈️ Airplane Mode — Frappe Developer Certification Project
 
-**Site:** navari.local | **App:** airplane_mode | **Framework:** Frappe v16
+A full-featured Frappe Framework application built across 4 days of the **Frappe Developer Certification Program**. Covers DocTypes, controllers, web views, reports, roles/permissions, REST API, background jobs, and a web portal.
 
----
+## 📋 Features
 
-## Part 1: Crew Members & Gate Numbers
-- Added `Flight Crew Member` child table (Crew Member → Link to Employee, Role → Select) to Airplane Flight
-- Added `Gate Number` field (Data) to Airplane Ticket
-- Added `Gate Number` field to Airplane Flight
-- Background job: when flight's gate number changes, updates gate number in all linked tickets via `frappe.enqueue`
+### Core (Days 1–2)
+- **Airline, Airplane, Airport, Flight Passenger, Airplane Ticket** DocTypes
+- Auto-naming: `IndiGo-001`, `IndiGo-001-BLR-to-BOM-001`
+- Fetch-from fields, submittable tickets, status tracking
+- **Airplane Flight** with web view (list + detail pages)
+- **Add-ons** system (child table with duplicate prevention)
+- Total amount calculation (Flight Price + Add-ons)
+- Capacity check (prevents overbooking)
+- Seat auto-assignment
+- **Flight Crew Member** tracking
+- Gate number sync via background jobs
 
-## Part 2: Airport Shop Management Module
+### Reports (Day 3)
+- **Airplanes by Airline** (Report Builder)
+- **Add-on Popularity** (Query Report with SQL)
+- **Revenue by Airline** (Script Report with Donut chart)
 
-### Module Def: Airport Shop Management
+### Airport Shop Management (Day 4)
+- **Shop** DocType with tenant info, contract details, physical properties
+- **Shop Type** with fixtures (Stall, Walk-through, Normal)
+- Rent payment tracking + rent receipt print format
+- Rent reminders via scheduler
+- **Global settings** (Single DocType): default rent, enable/disable reminders
+- **Web portal**: `/shops` list, shop detail, shop lead web form
+- Custom CSS styling
 
-### DocTypes Created
-- **Shop**: Shop Name, Shop Number, Airport, Shop Type, Tenant Name, Tenant Email, Tenant Phone, Rent Amount, Contract Start/Expiry Date, Area, Status (Available/Occupied), Is Published?
-- **Shop Type**: Name, Enabled (Check)
-- **Shop Rent Payment**: Shop, Tenant Name (fetch), Rent Amount, Payment Date, Month, Year
-- **Shop Lead**: Shop, Name, Email, Phone, Message
-- **Airport Shop Settings** (Single): Default Rent Amount, Enable Rent Reminders
+### Web & API
+- Web view pages for flights (`/flights`, `/indigo-001-00001`)
+- Show Me Colors page (`/show-me?color=red`)
+- Shop web portal (`/shops`, `/shops/shop-001`)
+- Web form for flight booking and shop leads
+- REST API for shop CRUD operations
+- System notifications (flight departure alerts)
 
-### Features
-- Rent tracking per month with rent receipt print format
-- Shops count per airport (via connections)
-- Available vs Occupied tracking
-- Rent reminders via scheduler (monthly) if enabled in settings
-- Print format: "Rent Receipt" for Shop Rent Payment
+### Roles & Permissions
+- Airport Authority Personnel, Fleet Manager, Travel Agent, Flight Crew Member
+- Travel Agent restricted to own records (if_owner)
+- Field-level visibility (Initial Audit Completed)
 
-### Web Portal
-- `/shops` — List of published shops
-- `/shops/shop-001` — Shop detail page with "Submit a Lead" link
-- `/shop-lead-web-form` — Web form for collecting shop leads
-- Custom CSS: `shops.css` (no base web.html inheritance)
+## 🏗️ Tech Stack
+- **Framework:** Frappe v16
+- **Apps:** ERPNext, HRMS
+- **Database:** MariaDB
+- **Cache:** Redis
 
-### Shop Types (Fixtures)
-- Stall, Walk-through, Normal (created out of the box via fixtures)
-- Shop Type link filtered to show only enabled types (set_query)
+## 🚀 Setup
+```bash
+bench new-site mysite.local
+bench --site mysite.local install-app airplane_mode
+bench --site mysite.local set-config developer_mode 1
+```
 
-### REST API
-- GET `/api/resource/Shop` — List all shops (all fields)
-- POST `/api/resource/Shop` — Create new shop
-- Authentication via API key/secret or session
+## 📁 Project Structure
+```
+airplane_mode/
+├── airplane_mode/          # Core module
+│   ├── doctype/            # All DocTypes
+│   ├── patches/            # Data patches
+│   ├── templates/pages/    # Portal pages
+│   └── www/                # Web pages
+├── airport_shop_management/ # Shop management module
+│   ├── doctype/            # Shop, Shop Type, etc.
+│   └── rent_reminder.py    # Scheduler
+├── fixtures/               # Shop Type fixtures
+└── public/css/             # Static assets
+```
 
-## Part 3: Shop Types
-- Shop Type DocType with Enabled? checkbox
-- Link field on Shop filtered to show only enabled types
-- Fixtures: Stall, Walk-through, Normal
-
-## Submission
-- Compressed app folder: airplane_mode
-- Demo video: (to be recorded)
-
-## Advanced Frappe
-- Debugging, Realtime, Caching documentation
-- Query Builder, Reports documentation
+## 📄 License
+MIT
