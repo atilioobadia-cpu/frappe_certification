@@ -36,7 +36,7 @@ bench --site mysite.local set-config developer_mode 1
 ### Passengers
 ![Passenger List](screenshots/passenger_list.png)
 
-### Shops (Desk)
+### Shops
 ![Shop List](screenshots/shop_list_desk.png)
 
 ### Reports
