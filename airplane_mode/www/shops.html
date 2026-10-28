@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shops</title>
+    <link rel="stylesheet" href="/assets/airplane_mode/css/shops.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Shops</h1>
+        <div class="shop-list">
+            {% for shop in shops %}
+            <div class="shop-card">
+                <h3><a href="/{{ shop.route }}">{{ shop.shop_name }}</a></h3>
+                <p>{{ shop.shop_number }} | {{ shop.airport }} | {{ shop.status }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

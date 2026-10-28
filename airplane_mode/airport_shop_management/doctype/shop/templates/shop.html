@@ -1,0 +1,17 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<h1>{{ doc.shop_name }}</h1>
+<div>
+    <p><strong>Shop Number:</strong> {{ doc.shop_number }}</p>
+    <p><strong>Airport:</strong> {{ doc.airport }}</p>
+    <p><strong>Shop Type:</strong> {{ doc.shop_type }}</p>
+    <p><strong>Tenant:</strong> {{ doc.tenant_name }}</p>
+    <p><strong>Email:</strong> {{ doc.tenant_email }}</p>
+    <p><strong>Rent Amount:</strong> {{ doc.rent_amount }}</p>
+    <p><strong>Area:</strong> {{ doc.area }} sq ft</p>
+    <p><strong>Status:</strong> {{ doc.status }}</p>
+    <p><strong>Contract:</strong> {{ doc.contract_start_date }} to {{ doc.contract_expiry_date }}</p>
+</div>
+<a href="/shop-lead-web-form?shop={{ doc.name }}">Interested? Submit a Lead</a>
+{% endblock %}

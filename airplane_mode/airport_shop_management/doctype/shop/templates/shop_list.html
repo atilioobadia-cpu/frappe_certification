@@ -1,0 +1,13 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<h1>Shops</h1>
+<div class="shop-list">
+    {% for shop in shops %}
+    <div class="shop-card">
+        <h3><a href="/{{ shop.route }}">{{ shop.shop_name }}</a></h3>
+        <p>{{ shop.shop_number }} | {{ shop.airport }} | {{ shop.status }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

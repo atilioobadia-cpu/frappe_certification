@@ -1,0 +1,42 @@
+{
+ "add_total_row": 0,
+ "add_translate_data": 0,
+ "columns": [
+  {
+   "fieldname": "add_on_type",
+   "fieldtype": "Link",
+   "label": "Add-on Type",
+   "options": "Airplane Ticket Add-on Type",
+   "width": 200
+  },
+  {
+   "fieldname": "sold_count",
+   "fieldtype": "Int",
+   "label": "Sold Count",
+   "width": 100
+  }
+ ],
+ "creation": "2026-10-28 12:02:35.627195",
+ "disable_prepared_report_automation": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "doctype_to_sync": [],
+ "filters": [],
+ "idx": 0,
+ "is_standard": "No",
+ "letter_head": null,
+ "modified": "2026-10-28 12:02:35.627195",
+ "modified_by": "Administrator",
+ "module": "Airplane Mode",
+ "name": "Add-on Popularity",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "\n        SELECT \n            add_on.item AS \"Add-on Type:Link/Airplane Ticket Add-on Type:200\",\n            COUNT(*) AS \"Sold Count:Int:100\"\n        FROM `tabAirplane Ticket Add-on Item` add_on\n        JOIN `tabAirplane Ticket` ticket ON ticket.name = add_on.parent\n        WHERE ticket.docstatus = 1\n        GROUP BY add_on.item\n        ORDER BY COUNT(*) DESC\n    ",
+ "ref_doctype": "Airplane Ticket Add-on Item",
+ "report_name": "Add-on Popularity",
+ "report_type": "Query Report",
+ "roles": [],
+ "snapshot_report": 0,
+ "timeout": 0
+}

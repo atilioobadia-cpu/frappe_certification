@@ -277,3 +277,16 @@ app_license = "mit"
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
 
+
+scheduler_events = {
+    "monthly": [
+        "airplane_mode.airport_shop_management.rent_reminder.send_rent_reminders",
+    ],
+}
+
+fixtures = [
+    {
+        'doctype': 'Shop Type',
+        'filters': [['name', 'in', ['Stall', 'Walk-through', 'Normal']]]
+    }
+]

@@ -1,0 +1,44 @@
+{
+ "add_total_row": 0,
+ "add_translate_data": 0,
+ "columns": [],
+ "creation": "2026-10-28 12:02:52.563018",
+ "disable_prepared_report_automation": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "doctype_to_sync": [],
+ "filters": [],
+ "idx": 0,
+ "is_standard": "No",
+ "letter_head": null,
+ "modified": "2026-10-28 12:28:45.599074",
+ "modified_by": "Administrator",
+ "module": "Airplane Mode",
+ "name": "Revenue By Airline",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "ref_doctype": "Airplane Ticket",
+ "report_name": "Revenue By Airline",
+ "report_script": "\n# Get all airlines\nairlines = frappe.get_all(\"Airline\", fields=[\"name\"], order_by=\"name\")\n\n# Get revenue per airline from submitted tickets\nrevenue_data = frappe.db.sql(\"\"\"\n    SELECT \n        airplane.airline,\n        SUM(ticket.total_amount) as revenue\n    FROM `tabAirplane Ticket` ticket\n    JOIN `tabAirplane Flight` flight ON flight.name = ticket.flight\n    JOIN `tabAirplane` airplane ON airplane.name = flight.airplane\n    WHERE ticket.docstatus = 1\n    GROUP BY airplane.airline\n\"\"\", as_dict=True)\n\nrevenue_map = {d.airline: (d.revenue or 0) for d in revenue_data}\n\ndata = []\ntotal_revenue = 0\nfor airline in airlines:\n    rev = revenue_map.get(airline.name, 0) or 0\n    data.append({\n        \"airline\": airline.name,\n        \"revenue\": rev,\n    })\n    total_revenue += rev\n\n# Add total row\ndata.append({\n    \"airline\": \"Total\",\n    \"revenue\": total_revenue,\n})\n\n# Chart\nchart = {\n    \"data\": {\n        \"labels\": [d[\"airline\"] for d in data if d[\"airline\"] != \"Total\"],\n        \"datasets\": [{\"name\": \"Revenue\", \"values\": [d[\"revenue\"] for d in data if d[\"airline\"] != \"Total\"]}],\n    },\n    \"type\": \"donut\",\n}\n\n# Summary\nreport_summary = [\n    {\"value\": total_revenue, \"label\": \"Total Revenue\", \"datatype\": \"Currency\"},\n]\n\n# Set result\ncolumns = [\n    {\"fieldname\": \"airline\", \"label\": \"Airline\", \"fieldtype\": \"Link\", \"options\": \"Airline\", \"width\": 200},\n    {\"fieldname\": \"revenue\", \"label\": \"Revenue\", \"fieldtype\": \"Currency\", \"width\": 150},\n]\n\nresult = data\n\n# Return full tuple via data variable\ndata = (columns, result, None, chart, report_summary, False)\n",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Airport Authority Personnel"
+  },
+  {
+   "role": "Fleet Manager"
+  },
+  {
+   "role": "Travel Agent"
+  },
+  {
+   "role": "Flight Crew Member"
+  }
+ ],
+ "snapshot_report": 0,
+ "timeout": 0
+}

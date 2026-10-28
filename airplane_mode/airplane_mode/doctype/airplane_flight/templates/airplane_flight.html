@@ -1,0 +1,14 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<h1>{{ doc.title or doc.name }}</h1>
+<div>
+    <p><strong>Airline:</strong> {{ frappe.db.get_value("Airplane", doc.airplane, "airline") }}</p>
+    <p><strong>Source Airport Code:</strong> {{ doc.source_airport_code }}</p>
+    <p><strong>Destination Airport Code:</strong> {{ doc.destination_airport_code }}</p>
+    <p><strong>Date of Departure:</strong> {{ frappe.utils.format_date(doc.date_of_departure, "d MMMM, YYYY") }}</p>
+    <p><strong>Time of Departure:</strong> {{ doc.time_of_departure }}</p>
+    <p><strong>Duration:</strong> {{ frappe.utils.format_duration(doc.duration) }}</p>
+</div>
+<a href="/book-flight-ticket-web-form?flight={{ doc.name }}">Book Flight</a>
+{% endblock %}
