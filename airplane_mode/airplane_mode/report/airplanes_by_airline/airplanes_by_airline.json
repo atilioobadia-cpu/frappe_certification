@@ -54,5 +54,6 @@
   }
  ],
  "snapshot_report": 0,
- "timeout": 0
+ "timeout": 0,
+ "group_by": "airline"
 }
