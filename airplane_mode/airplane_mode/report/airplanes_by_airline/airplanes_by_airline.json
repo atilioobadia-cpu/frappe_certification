@@ -25,7 +25,24 @@
  "filters": [],
  "idx": 0,
  "is_standard": "No",
- "json": "{}",
+ "json": {
+  "filters": [],
+  "fields": [
+   [
+    "airline",
+    "Airplane"
+   ],
+   [
+    "_aggregate_column",
+    "Airplane"
+   ]
+  ],
+  "order_by": "_aggregate_column desc",
+  "group_by": {
+   "group_by": "`tabAirplane`.`airline`",
+   "aggregate_function": "count"
+  }
+ },
  "letter_head": null,
  "modified": "2026-10-28 12:02:24.363848",
  "modified_by": "Administrator",
@@ -55,5 +72,5 @@
  ],
  "snapshot_report": 0,
  "timeout": 0,
- "group_by": "airline"
+ "group_by": "`tabAirplane`.`airline`"
 }
