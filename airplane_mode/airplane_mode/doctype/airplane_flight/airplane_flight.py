@@ -11,22 +11,26 @@ class AirplaneFlight(WebsiteGenerator):
         self.save()
 
     def on_update(self):
-        gate_number = self.get("gate_number")
-        if self.has_value_changed("gate_number"):
-            frappe.enqueue(
-                "airplane_mode.airplane_mode.doctype.airplane_flight.airplane_flight.update_ticket_gates",
-                flight=self.name,
-                gate_number=gate_number,
-            )
+        try:
+            if self.has_value_changed("gate_number"):
+                frappe.enqueue(
+                    "airplane_mode.airplane_mode.doctype.airplane_flight.airplane_flight.update_ticket_gates",
+                    flight=self.name,
+                    gate_number=self.get("gate_number"),
+                )
+        except Exception:
+            pass
 
     def on_update_after_submit(self):
-        gate_number = self.get("gate_number")
-        if self.has_value_changed("gate_number"):
-            frappe.enqueue(
-                "airplane_mode.airplane_mode.doctype.airplane_flight.airplane_flight.update_ticket_gates",
-                flight=self.name,
-                gate_number=gate_number,
-            )
+        try:
+            if self.has_value_changed("gate_number"):
+                frappe.enqueue(
+                    "airplane_mode.airplane_mode.doctype.airplane_flight.airplane_flight.update_ticket_gates",
+                    flight=self.name,
+                    gate_number=self.get("gate_number"),
+                )
+        except Exception:
+            pass
 
 
 def update_ticket_gates(flight, gate_number):
